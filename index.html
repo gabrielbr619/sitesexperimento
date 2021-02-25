@@ -4,73 +4,96 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iRock</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Somando</title>
+
+   
+
+    <style>
+        body{
+            background-color: crimson;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            text-align: center;
+        }
+        #caixa{
+            justify-items: center;
+            align-items: center;
+            margin: auto;
+        }
+        #caixa h1{
+            grid-column: 1;
+            grid-row: 1;
+        }
+        .number{
+            margin: 0 10px;
+        }
+
+        #botao {
+            background-color: #00008b;
+            width: 150px;
+            height: 50px;
+            line-height: 50px;
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            border-radius: 20px;
+            box-shadow: rgb(7, 2, 39) 5px 5px 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Somando Valores</h1>
+    <div id=caixa>
+    <input type="number" name="txtn1" class="number" id="txtn1">
+    <input type="number" name="txtn2" class="number" id="txtn2">
+    <div id="botao" value="Somar">Aperte</div>
+    <div id="res"></div>
+    </div>
+
+
     <script>
-        function parseDonuts(donutString){
-            numDonuts = parseInt(donutString);
-            if (donutString.indexOf("duzia") != -1)
-                numDonuts *=12;
-            return numDonuts;
+        const botao = document.getElementById('botao');
+
+
+            botao.addEventListener('mouseover', animacao)
+            botao.addEventListener('click', somar)
+            botao.addEventListener('click', animacao3)
+            botao.addEventListener('mouseleave', animacao2)
+
+        function animacao(){
+            botao.style.transitionDuration= '0.5s';
+            botao.style.width= '160px';
+            botao.style.height= '60px';
+            botao.style.lineHeight= '60px'
         }
-        function updateOrder(){
-            const TAX = 0.05;
-            const PRECODONUT = 2;
-            var numDonutBolo = parseDonuts(document.getElementById("donutbolo").value);
-            var numDonutSimples = parseDonuts(document.getElementById("donutsimples").value);
-            
-            if(isNaN(numDonutBolo))
-                numDonutBolo = 0;
-            if(isNaN(numDonutSimples))
-                numDonutSimples = 0;
-
-            var nome = document.getElementById("nome").value;
-            var tempo = parseInt(document.getElementById("tempo").value);
-            var total = (numDonutBolo + numDonutSimples) * PRECODONUT;
-            
-
-            resultado.innerHTML = `O valor está <em>R$${total}</em>`;
+        function animacao2(){
+            botao.style.width= '150px';
+            botao.style.height= '50px';
+            botao.style.lineHeight= '50px'
+            botao.style.backgroundColor= '#00008b'
         }
-        function placeOrder(){
+        function animacao3(){
+            botao.style.transitionDuration= '0.1s'
+            botao.style.backgroundColor= '#03036b'
+        }
+        
+        function somar(){
+            var tn1 = document.getElementById('txtn1').value;
+            var tn2 = document.getElementById('txtn2').value;
+            var res = document.getElementById('res')
+            var n1 = parseInt(tn1);
+            var n2 = parseInt(tn2);
+            var s = n1 + n2
+            if (isNaN(n1) || isNaN(n2))
+                alert('Escreva um número válido.');
             
-            if (document.getElementById("nome").value == "")
-            alert("Você precisa fornecer um nome antes de enviar o pedido.");
-
-            else if (isNaN (tempo)||(tempo == ""))
-            
-            alert("Você deve fornercer o número de minutos até a coleta antes de enviar o pedido.");
-            
-            else form.submit();
+            else{
+            res.innerHTML = `A soma entre ${n1} e ${n2} resulta em ${s}`;}
         }
     </script>
-</head>
-
-<body>
-    <div id="frame">
-        <form name="orderform" action="donuts.php" method="POST">
-            <div class="field">
-                Seu nome: <input type="text" name="nome" id="nome" value="" onchange="updateOrder();">
-            </div>
-            <div class="field">
-                # de donuts de bolo: <input type="text" name="donutbolo" id="donutbolo" value="" onchange="updateOrder();">
-            </div>
-            <div class="field">
-                # de donuts de simples: <input type="text" name="donutsimples" id="donutsimples" value="" onchange="updateOrder();"> 
-            </div>
-            <div class="field">
-                Horas que irá buscar: <input type="text" name="tempo" id="tempo" value="" onchange="updateOrder();">
-            </div>
-            
-            <div class="subTotal" name="subTotal" id="subTotal" value="">
-            </div>
-            <div class="resultado" name= "resultado" id="resultado">
-
-            </div>
-            
-            <div class="field">
-                <input type="button" value="Place Order" onclick="placeOrder();">
-            </div>
-        </form>
-    </div>
 </body>
 </html>
